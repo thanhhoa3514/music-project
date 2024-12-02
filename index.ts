@@ -2,9 +2,10 @@
 import express,{Express} from "express";
 import dotenv from "dotenv"
 import * as database from "./config/database";
+import routeClient from "./routes/client/index.route";
 // import cors from "cors";
 // routes
-// import mainV1Routes from "./api/v1/routes/index.route"
+
 
 dotenv.config();
 database.connect();
@@ -20,7 +21,8 @@ app.set("view engine", "pug");
 //     allowedHeaders: ['Content-Type', 'Authorization']
 // }));
 
-// mainV1Routes(app);
+// Routes client side
+routeClient(app);
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });

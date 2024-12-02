@@ -1,6 +1,13 @@
-doctype html 
-html 
-    head 
-        title Home 
-    body 
-        h1 Welcome to the Home Page
+extend ../../layouts/default.pug
+include ../../mixins/box-head.pug
+block main 
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head(pageTitle,{
+            iconClass: 'fas fa-info-circle',
+            bgColor: '#28a745',
+            textColor: 'white',
+            fontSize: '1.8rem',
+            shadowIntensity: '0.2'
+        })
