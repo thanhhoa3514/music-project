@@ -1,1 +1,23 @@
-header Header
+header.music-header
+  .container
+    .header-content
+      a.logo(href='#')
+        i.fas.fa-music.logo-icon
+        span.logo-text Music 
+      ul.nav-menu
+        li.nav-item
+          a.nav-link(href='#') Home
+        li.nav-item
+          a.nav-link(href='#') Lib
+        li.nav-item
+          a.nav-link(href='#') Playlist
+        li.nav-item
+          a.nav-link(href='#') Nghệ Sĩ
+      .user-actions
+        input.search-input(type='text' placeholder='Tìm kiếm...')
+        button.btn.btn-light
+          i.fas.fa-upload
+          | Upload
+        button.btn.btn-outline-light
+          i.fas.fa-user
+          | Login
