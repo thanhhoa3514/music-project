@@ -14,7 +14,11 @@ const port:string|number = process.env.PORT||3000;
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
+
+app.use(express.static(`${__dirname}/public`));
+
 app.set("views", `${__dirname}/views`);
+
 app.set("view engine", "pug");
 // app.use(cors({
 //     methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH'],
