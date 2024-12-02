@@ -4,10 +4,16 @@ block main
     .container.my-3 
         .row 
             .col-12 
-                +box-head(pageTitle,{
-            iconClass: 'fas fa-info-circle',
-            bgColor: '#28a745',
-            textColor: 'white',
-            fontSize: '1.8rem',
-            shadowIntensity: '0.2'
-        })
+                +box-head(pageTitle,{bgColor: '#a79748'})
+        .row 
+            each topic in topics
+                .col-6.mb-3
+                    .card
+                        img(src=topic.avatar alt=topic.title)
+                        .card-body
+                        h5.card-title #{topic.title}
+                            p.card-text #{topic.description}
+                            a.btn.btn-primary(href=`/songs/${topic.slug}`) View details
+            
+
+
