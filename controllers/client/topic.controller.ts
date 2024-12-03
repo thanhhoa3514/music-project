@@ -4,7 +4,7 @@ export const index= async (req: Request, res: Response):Promise<void>=>{
     const topics= await Topic.find({
         deleted:false
     })
-    console.log(topics);
+    // console.log(topics);
     res.render("client/pages/topics/index",{
         pageTitle:"Music Theme",
         topics:topics
