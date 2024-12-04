@@ -3,6 +3,7 @@ import Topic from "../../models/topic.model";
 import Song from "../../models/song.model";
 import Singer from "../../models/singer.model";
 import { Document, ObjectId } from "mongoose";
+import FavoriteSong from "../../models/fovourite-song.model";
 // [GET] /songs/:slugTopic
 export const index = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -62,6 +63,12 @@ export const detail = async (req: Request, res: Response): Promise<void> => {
       status: "active",
       deleted: false,
     }).select("title");
+
+    const songFavorites = await FavoriteSong.exists({
+      songId: song.id,
+    });
+
+    (song as any).songFavorites = !!songFavorites;
     // console.log(topic);
     res.render("client/pages/songs/detail", {
       pageTitle: " Songs",
@@ -103,6 +110,45 @@ export const like = async (req: Request, res: Response): Promise<void> => {
     res.status(200).send({
       message: "Like successful",
       like: newLike,
+    });
+  } catch (error) {
+    console.error(error); // Log the error for debugging
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
+
+// [PATCH] /songs/favorite/:typeFavorite/:idSong
+
+export const favorite = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const idSong: string = req.params.idSong;
+    const typeFavorite: string = req.params.typeFavorite;
+    if (!idSong || !typeFavorite) {
+      res.status(400).send({ message: "Invalid request parameters" });
+      return;
+    }
+    switch (typeFavorite) {
+      case "favorite":
+        const existingSongs = FavoriteSong.findOne({
+          songId: idSong,
+        });
+        if (!existingSongs) {
+          const newRecord = new FavoriteSong({
+            songId: idSong,
+          });
+          newRecord.save();
+        }
+        break;
+      case "unfavorite":
+        await FavoriteSong.deleteOne({
+          songId: idSong,
+        });
+      default:
+        break;
+    }
+    res.status(200).send({
+      message: "Added into a favorite list successful",
     });
   } catch (error) {
     console.error(error); // Log the error for debugging
