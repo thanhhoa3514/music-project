@@ -14,7 +14,11 @@ header.music-header
         li.nav-item
           a.nav-link(href='#') Artist
       .user-actions
-        input.search-input(type='text' placeholder='Tìm kiếm...')
+        form(action="/search/result") 
+          input.search-input(type='text' placeholder='Tìm kiếm...' value=keyword name="keyword")
+          button(type='submit' class ="btn btn-outline-light")
+            i.fas.fa-search
+            | Tìm kiếm
         button.btn.btn-light
           i.fas.fa-upload
           | Upload
