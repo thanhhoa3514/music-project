@@ -23,22 +23,25 @@ if(buttonLike){
 }
 
 // End
-const buttonFavorite= document.querySelector("[button-favorite]");
+const listButtonFavorite= document.querySelectorAll("[button-favorite]");
 // console.log(buttonLike);
-if(buttonFavorite){
-    buttonFavorite.addEventListener("click",()=>{
-        const idSong=buttonFavorite.getAttribute("button-favorite");
-        const isActive=buttonFavorite.classList.contains("active");
-        const typeFavorite= isActive ? "unfavorite":"favorite";
-        const link=`/songs/favorite/${typeFavorite}/${idSong}`
-        fetch(link,{
-            method: "PATCH",
-            credentials: "include"
-        }).then(response=>response.json()).then(data=>{
-            if(data.code===200){
+if(listButtonFavorite.length > 0) {
+    listButtonFavorite.forEach((buttonFavorite)=>{
+        buttonFavorite.addEventListener("click",()=>{
+            const idSong=buttonFavorite.getAttribute("button-favorite");
+            const isActive=buttonFavorite.classList.contains("active");
+            const typeFavorite= isActive ? "unfavorite":"favorite";
+            const link=`/songs/favorite/${typeFavorite}/${idSong}`
+            fetch(link,{
+                method: "PATCH",
+                credentials: "include"
+            }).then(response=>response.json()).then(data=>{
+                if(data.code===200){
+    
+                    buttonFavorite.classList.toggle("active");
+                }
+            })
+        });
 
-                buttonFavorite.classList.toggle("active");
-            }
-        })
-    });
+    })
 }

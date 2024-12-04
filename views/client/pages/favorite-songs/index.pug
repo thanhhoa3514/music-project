@@ -1,0 +1,27 @@
+extend ../../layouts/default.pug
+include ../../mixins/box-head.pug
+block main 
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head("Favorite List Song",{bgColor: '#a79748'})
+        
+        .row 
+            if(favoriteSongs && favoriteSongs.length > 0)
+                each item in favoriteSongs
+                    .col-6.mb-3
+                        .song-item
+                            .inner-image
+                                a(href=`/songs/detail/${item.songId.slug}`)
+                                    img(src=`/songs/detail/${item.songId.avatar}` alt=item.songId.title)
+                            .inner-content
+                                .inner-title
+                                    a(href=`/songs/detail/${item.songId.slug}`) #{item.songId.title}
+                                .inner-singer #{item.songId.singerId.fullName}
+                                    i.fa-solid.fa-microphone-lines
+                                div(class="inner-action inner-heart active"  button-favorite=song.id)
+                                    i.fa-regular.fa-heart Favorite
+                                .inner-time
+                                    i.fa-regular.fa-clock Today
+            else 
+                span No song favorite here
